@@ -1,0 +1,18 @@
+<!-- src/app/components/login/login.component.html -->
+<mat-card class="login-card">
+    <mat-toolbar color="primary">Iniciar Sesión</mat-toolbar>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre de Usuario</mat-label>
+        <input matInput type="text" [(ngModel)]="username" name="username" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [(ngModel)]="password" name="password" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Iniciar Sesión</button>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </mat-card>
