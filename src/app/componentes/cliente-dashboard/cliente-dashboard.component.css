@@ -1,0 +1,280 @@
+/* Estilos para el contenedor principal */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Estilos para el contenedor del contenido */
+  .content-container {
+    flex: 1;
+  }
+  
+  /* Estilos para el encabezado */
+  header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos para la navegación */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px;
+  }
+  
+  /* Ocultar el botón del menú hamburguesa en pantallas grandes */
+  .menu-button {
+    display: none;
+    color: #333;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-button:hover {
+    transform: rotate(90deg);
+  }
+  
+  /* Mostrar el menú de navegación normal en pantallas grandes */
+  .nav-items {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+  }
+  
+  .nav-items li {
+    margin: 0 30px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-items a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+  }
+  
+  .nav-items a::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff5722;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-items a:hover::before {
+    width: 100%;
+  }
+  
+  /* Estilos para la navegación derecha */
+  .nav-right {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .nav-right li {
+    margin-left: 20px;
+  }
+  
+  .small-icon {
+    font-size: 24px;
+  }
+  
+  /* Estilos para el contenedor del drawer */
+  .sidenav-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* Estilos para el drawer */
+  .sidenav {
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .drawer-nav {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+  }
+  
+  .drawer-nav li {
+    margin-bottom: 10px;
+  }
+  
+  .drawer-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .drawer-nav a:hover {
+    color: #ff5722;
+  }
+  
+  /* Ocultar el menú de navegación normal y mostrar el botón del menú hamburguesa en pantallas pequeñas */
+  @media (max-width: 768px) {
+    .menu-button {
+      display: block;
+    }
+  
+    .nav-items {
+      display: none;
+    }
+  
+    .nav-items li {
+      margin: 0;
+      padding: 10px;
+      border-radius: 0;
+    }
+  
+    .nav-items li:hover {
+      background-color: transparent;
+    }
+  
+    .nav-items a {
+      color: #333;
+    }
+  
+    .nav-items a::before {
+      content: none;
+    }
+  
+    .nav-items a:hover::before {
+      width: 0;
+    }
+  
+    .nav-right {
+      display: flex; /* Mostrar la navegación derecha en modo responsive */
+    }
+  
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .drawer-nav li {
+      margin-bottom: 0;
+    }
+  
+    .drawer-nav a {
+      display: block;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .drawer-nav a:hover {
+      color: #333;
+      background-color: #f5f5f5;
+    }
+  }
+  
+  /* Estilos para la sección hero */
+  .hero {
+    text-align: center;
+    padding: 100px 20px; /* Aumentar el relleno superior e inferior */
+    background: linear-gradient(to right, #ff9800, #ffc107); /* Gradiente de color de fondo */
+    color: #fff; /* Cambiar el color del texto a blanco */
+  }
+  
+  .hero h1 {
+    font-size: 3.5em; /* Aumentar el tamaño del encabezado */
+    margin-bottom: 30px; /* Aumentar el espacio debajo del encabezado */
+  }
+  
+  .hero p {
+    font-size: 1.5em; /* Aumentar el tamaño del texto */
+    margin-bottom: 40px; /* Aumentar el espacio debajo del texto */
+  }
+  
+  /* Estilos para la sección de productos */
+  .products {
+    padding: 40px 0; /* Eliminar el relleno lateral */
+    max-width: 1200px; /* Establecer un ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+    text-align: center; /* Centrar el texto */
+  }
+  
+  .products h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center; /* Centrar el encabezado */
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center; /* Centrar horizontalmente la cuadrícula */
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .product-card .price {
+    font-weight: bold;
+    color: #ff5722;
+    margin-top: 10px;
+  }
+  
+  /* Estilos para el pie de página */
+  .footer {
+    background-color: #333; /* Color de fondo oscuro */
+    color: #fff; /* Cambiar el color del texto a blanco */
+    padding: 20px; /* Aumentar el relleno superior e inferior */
+    text-align: center;
+    width: 100%; /* Asegurar que el footer ocupe el 100% del ancho */
+    box-sizing: border-box;
+  }
+  
+  .footer p {
+    font-size: 1.2em; /* Aumentar el tamaño del texto */
+    margin-bottom: 0; /* Eliminar el margen inferior */
+  }
+  
+  .footer .social-icons {
+    margin-bottom: 15px; /* Agregar espacio debajo de los iconos sociales */
+  }
+  
+  .footer .social-icons a {
+    font-size: 2em; /* Aumentar el tamaño de los iconos */
+    color: #fff; /* Cambiar el color de los iconos a blanco */
+    margin: 0 10px; /* Agregar espacio entre los iconos */
+    transition: color 0.3s ease; /* Transición suave de color */
+  }
+  
+  .footer .social-icons a:hover {
+    color: #ff5722; /* Cambiar el color de los iconos al pasar el mouse sobre ellos */
+  }

@@ -1,0 +1,89 @@
+.login-container,
+  .home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 1em;
+    box-sizing: border-box;
+  }
+  
+  .content-container {
+    max-width: 1200px; /* Ajusta el ancho máximo del contenido */
+    width: 100%; /* Asegúrate de que el contenedor ocupe el 100% del ancho disponible */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 1em; /* Agrega padding para los márgenes */
+  }
+  
+  /* Reglas comunes para la tarjeta de Material */
+  .mat-card-responsive {
+    padding: 2em;
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px; /* Ancho mínimo */
+    box-sizing: border-box;
+  }
+  
+  /* Reglas comunes para el título */
+  .title-center {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  /* Reglas comunes para los campos de formulario */
+  .full-width-field {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  
+  /* Reglas comunes para el contenedor del botón */
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Reglas comunes para el botón de ancho completo */
+  .full-width-button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  /* Media queries para pantallas pequeñas */
+  @media (max-width: 600px) {
+    .mat-card-responsive {
+      padding: 1em;
+      min-width: 100%; /* Ajustar el ancho mínimo para pantallas pequeñas */
+    }
+  
+    .full-width-button {
+      max-width: 100%;
+    }
+  }
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .mat-card-responsive {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .title-center {
+    text-align: center;
+  }
+  
+  .full-width-field {
+    width: 100%;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .full-width-button {
+    width: 100%;
+  }

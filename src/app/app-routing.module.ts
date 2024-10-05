@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
+import { ClienteDashboardComponent } from './componentes/cliente-dashboard/cliente-dashboard.component';
+import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirigir a login por defecto
-  { path: '**', redirectTo: '/login' } // Redirigir a login si la ruta no coincide
+  { path: 'iniciar-sesion', component: IniciarSesionComponent },
+  { path: 'cliente', component: ClienteDashboardComponent },
+  { path: 'admin', component: AdminDashboardComponent },
+  { path: '', redirectTo: '/iniciar-sesion', pathMatch: 'full' },
+  { path: '**', redirectTo: '/iniciar-sesion' } // Ruta para manejar rutas no encontradas
 ];
 
 @NgModule({

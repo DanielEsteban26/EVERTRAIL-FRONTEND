@@ -1,0 +1,89 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" mode="over" [opened]="false">
+      <ul class="drawer-nav">
+        <li><a routerLink="/" (click)="sidenav.close()">Inicio</a></li>
+        <li><a routerLink="/comprar" (click)="sidenav.close()">Comprar</a></li>
+        <li><a routerLink="/sobre-nosotros" (click)="sidenav.close()">Sobre Nosotros</a></li>
+        <li><a routerLink="/contacto" (click)="sidenav.close()">Contacto</a></li>
+      </ul>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <div class="home-container">
+        <div class="content-container">
+          <header>
+            <nav>
+              <div class="nav-left">
+                <button mat-icon-button class="menu-button" (click)="sidenav.toggle()">
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </div>
+              <ul class="nav-items">
+                <li><a routerLink="/">Inicio</a></li>
+                <li><a routerLink="/comprar">Comprar</a></li>
+                <li><a routerLink="/sobre-nosotros">Sobre Nosotros</a></li>
+                <li><a routerLink="/contacto">Contacto</a></li>
+              </ul>
+              <ul class="nav-right">
+                <li class="cart-icon">
+                  <a routerLink="/carrito">
+                    <mat-icon class="small-icon">shopping_cart</mat-icon>
+                  </a>
+                </li>
+                <li>
+                  <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+                    <mat-icon class="small-icon">account_circle</mat-icon>
+                  </button>
+                  <mat-menu #accountMenu="matMenu">
+                    <button mat-menu-item>
+                      <mat-icon>person</mat-icon>
+                      <span>Ver Cuenta</span>
+                    </button>
+                    <button mat-menu-item>
+                      <mat-icon>lock</mat-icon>
+                      <span>Cambiar Contraseña</span>
+                    </button>
+                    <button mat-menu-item (click)="logout()">
+                      <mat-icon>exit_to_app</mat-icon>
+                      <span>Cerrar Sesión</span>
+                    </button>
+                  </mat-menu>
+                </li>
+              </ul>
+            </nav>
+          </header>
+  
+          <section class="hero">
+            <h1>Bienvenido a nuestra tienda de ropa deportiva</h1>
+            <p>Encuentra la mejor ropa deportiva para tus actividades favoritas.</p>
+            <button mat-raised-button color="primary">Comprar Ahora</button>
+          </section>
+  
+          <section class="products">
+            <h2>Productos Destacados</h2>
+            <div class="products-grid">
+              <mat-card *ngFor="let product of products" class="product-card">
+                <mat-card-content>
+                  <h3>{{ product.nombre }}</h3>
+                  <p>{{ product.descripcion }}</p>
+                  <p class="price">{{ product.precio | currency }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button color="primary">Agregar al Carrito</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </section>
+  
+          <footer class="footer">
+            <div class="social-icons">
+              <a href="https://facebook.com" target="_blank"><mat-icon class="small-icon">facebook</mat-icon></a>
+              <a href="https://twitter.com" target="_blank"><mat-icon class="small-icon">twitter</mat-icon></a>
+              <a href="https://instagram.com" target="_blank"><mat-icon class="small-icon">instagram</mat-icon></a>
+            </div>
+            <p>&copy; 2023 Tienda de Ropa Deportiva. Todos los derechos reservados.</p>
+          </footer>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
