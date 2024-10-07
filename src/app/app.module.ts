@@ -17,13 +17,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { ClienteDashboardComponent } from './componentes/cliente-dashboard/cliente-dashboard.component';
 import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
+import { CarritoComponent } from './componentes/carrito/carrito.component';
+import { ResenaComponent } from './componentes/resena/resena.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteDashboardComponent,
     AdminDashboardComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    PerfilComponent,
+    HistorialComprasComponent,
+    CarritoComponent,
+    ResenaComponent
   ],
   imports: [
     BrowserModule,

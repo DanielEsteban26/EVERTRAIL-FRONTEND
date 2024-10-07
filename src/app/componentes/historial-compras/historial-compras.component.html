@@ -1,0 +1,8 @@
+<div class="historial-compras-container">
+    <h2>Historial de Compras</h2>
+    <ul>
+      <li *ngFor="let pedido of pedidos">
+        Pedido ID: {{ pedido.id }} - Fecha: {{ pedido.fecha }} - Total: {{ pedido.total }}
+      </li>
+    </ul>
+  </div>
