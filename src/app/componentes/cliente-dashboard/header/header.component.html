@@ -1,0 +1,41 @@
+<header>
+  <nav>
+    <div class="nav-left">
+      <button mat-icon-button class="menu-button" (click)="toggleSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <ul class="nav-items">
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/comprar">Comprar</a></li>
+      <li><a routerLink="/sobre-nosotros">Sobre Nosotros</a></li>
+      <li><a routerLink="/contacto">Contacto</a></li>
+    </ul>
+    <ul class="nav-right">
+      <li class="cart-icon">
+        <a routerLink="/carrito">
+          <mat-icon class="small-icon">shopping_cart</mat-icon>
+        </a>
+      </li>
+      <li>
+        <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+          <mat-icon class="small-icon">account_circle</mat-icon>
+        </button>
+        <mat-menu #accountMenu="matMenu">
+          <button mat-menu-item routerLink="/perfil">
+            <mat-icon>person</mat-icon>
+            <span>Ver Cuenta</span>
+          </button>
+          <button mat-menu-item routerLink="/historial-compras">
+            <mat-icon>history</mat-icon>
+            <span>Historial de Compras</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </li>
+    </ul>
+  </nav>
+</header>

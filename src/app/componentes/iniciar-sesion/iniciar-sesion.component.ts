@@ -10,6 +10,7 @@ import { IniciarSesionService } from '../../servicios/api/iniciar-sesion/iniciar
 })
 export class IniciarSesionComponent implements OnInit {
   loginForm!: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -30,28 +31,34 @@ export class IniciarSesionComponent implements OnInit {
       this.iniciarSesionService.login(nombreUsuario, contrasenia).subscribe(
         (response: any) => {
           console.log('Login successful', response);
-          const username = response.username;
-          if (username) {
-            console.log('Rol del usuario:', username);
-            this.redirectUser(username);
+          const loginResponse = response.object;
+          console.log('Login response object:', loginResponse); // Log the entire response object
+          if (loginResponse && loginResponse.token && loginResponse.rol) {
+            // Guardar token y rol en localStorage
+            localStorage.setItem('token', loginResponse.token);
+            localStorage.setItem('rol', loginResponse.rol);
+            console.log('Token y rol guardados en localStorage');
+            this.redirectUser(loginResponse.rol);
           } else {
-            console.error('Rol desconocido', response);
+            console.error('Respuesta de login inválida', response);
+            this.errorMessage = 'Respuesta de login inválida';
           }
         },
         (error: any) => {
           console.error('Error de autenticación', error);
+          this.errorMessage = 'Nombre de usuario o contraseña incorrectos';
         }
       );
     }
   }
 
-  private redirectUser(username: string) {
-    if (username === 'Administrador') {
+  private redirectUser(rol: string) {
+    if (rol === 'Administrador') {
       this.router.navigate(['/admin']);
-    } else if (username === 'Cliente') {
+    } else if (rol === 'Cliente') {
       this.router.navigate(['/cliente']);
     } else {
-      console.error('Rol desconocido:', username);
+      console.error('Rol desconocido:', rol);
     }
   }
 }

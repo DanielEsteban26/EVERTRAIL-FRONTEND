@@ -1,0 +1,18 @@
+.users-container {
+  margin: 20px;
+}
+
+.mat-elevation-z8 {
+  margin-bottom: 20px;
+}
+
+/* Estilos personalizados para los botones */
+.edit-button {
+  background-color: #FFEB3B; /* Amarillo */
+  color: black;
+}
+
+.delete-button {
+  background-color: #F44336; /* Rojo */
+  color: white;
+}

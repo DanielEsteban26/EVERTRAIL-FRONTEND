@@ -14,5 +14,8 @@
         <button mat-raised-button color="primary" class="full-width-button" type="submit">Iniciar Sesión</button>
       </div>
     </form>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
   </mat-card>
 </div>

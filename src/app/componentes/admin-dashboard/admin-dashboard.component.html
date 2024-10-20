@@ -1,1 +1,49 @@
-<p>admin-dashboard works!</p>
+<mat-toolbar class="header">
+  <span>EVERTRAIL ADMIN DASHBOARD</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button mat-button class="logout-button" (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Cerrar Sesión
+  </button>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" [class.sidenav-hidden]="isSidenavHidden">
+  <mat-sidenav mode="side" opened class="sidenav" *ngIf="!isSidenavHidden">
+    <div cdkscrollable class="mat-drawer-inner-container">
+      <div class="accordion-container">
+        <mat-accordion class="mat-accordion accordion" multi>
+          <mat-expansion-panel class="mat-expansion-panel">
+            <mat-expansion-panel-header class="mat-expansion-panel-header resumen-header">
+              <mat-panel-title class="mat-expansion-panel-header-title">
+                Resumen
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="mat-expansion-panel-content">
+              <a mat-list-item routerLink="productos">Productos</a>
+              <a mat-list-item routerLink="marcas">Marcas</a>
+              <a mat-list-item routerLink="categorias">Categorías</a>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="mat-expansion-panel">
+            <mat-expansion-panel-header class="mat-expansion-panel-header usuarios-header">
+              <mat-panel-title class="mat-expansion-panel-header-title">
+                Usuarios
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="mat-expansion-panel-content">
+              <a mat-list-item routerLink="usuarios">Usuarios</a>
+            
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

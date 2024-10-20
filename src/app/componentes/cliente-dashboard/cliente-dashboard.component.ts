@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { RevocarTokenService } from '../../servicios/api/revocar-token/revocar-token.service'; // Asegúrate de ajustar la ruta según tu estructura de carpetas
+import { RevocarTokenService } from '../../servicios/api/revocar-token/revocar-token.service';
 import { Router } from '@angular/router';
-import { ProductosService } from '../../servicios/api/productos/productos.service'; // Importa el servicio de productos
-import { Producto } from '../../compartido/modelos/productos/producto.model'; // Importa el modelo Producto
+import { ProductosService } from '../../servicios/api/productos/productos.service';
+import { Producto } from '../../compartido/modelos/productoDTO/producto.model';
 
 @Component({
   selector: 'app-cliente-dashboard',
@@ -11,8 +11,8 @@ import { Producto } from '../../compartido/modelos/productos/producto.model'; //
   styleUrls: ['./cliente-dashboard.component.css']
 })
 export class ClienteDashboardComponent implements OnInit {
-  @ViewChild('sidenav') sidenav!: MatSidenav; // Referencia al sidenav
-  products: Producto[] = []; // Define la propiedad products usando el modelo Producto
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  products: Producto[] = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -22,21 +22,20 @@ export class ClienteDashboardComponent implements OnInit {
   }
 
   constructor(
-    private revocarTokenService: RevocarTokenService,
-    private router: Router,
-    private productosService: ProductosService // Inyecta el servicio de productos
+    private productosService: ProductosService
   ) {}
 
   ngOnInit(): void {
-    this.getProductos(); // Llama al método para obtener los productos al inicializar el componente
+    this.listarProductos();
   }
 
-  getProductos(): void {
+  listarProductos(): void {
     this.productosService.getProductos().subscribe(
-      (data: Producto[]) => {
-        this.products = data;
+      (response: any) => {
+        console.log(response);
+        this.products = response.object;
       },
-      (error) => {
+      (error: any) => {
         console.error('Error al obtener los productos', error);
       }
     );
@@ -45,22 +44,6 @@ export class ClienteDashboardComponent implements OnInit {
   toggleDrawer() {
     if (this.sidenav) {
       this.sidenav.toggle();
-    }
-  }
-
-  logout() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.revocarTokenService.revokeToken(token).subscribe(
-        () => {
-          localStorage.removeItem('token');
-          console.log('Token removido correctamente :)');
-          this.router.navigate(['/iniciar-sesion']);
-        },
-        error => {
-          console.error('Error al revocar el token', error);
-        }
-      );
     }
   }
 }

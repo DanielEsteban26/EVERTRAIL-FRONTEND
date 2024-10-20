@@ -14,24 +14,53 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; // Asegúrate de importar RouterModule aquí
 import { ClienteDashboardComponent } from './componentes/cliente-dashboard/cliente-dashboard.component';
 import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
-import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { ResenaComponent } from './componentes/resena/resena.component';
-
+import { MatTableModule } from '@angular/material/table';
+import { HeaderComponent } from './componentes/cliente-dashboard/header/header.component';
+import { SidenavComponent } from './componentes/cliente-dashboard/sidenav/sidenav.component';
+import { FooterComponent } from './componentes/cliente-dashboard/footer/footer.component';
+import { SidebarComponent } from './componentes/admin-dashboard/sidebar/sidebar.component';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AddProductDialog, ConfirmDeleteDialog, EditProductDialog, ProductoComponent } from './componentes/admin-dashboard/producto/producto.component';
+import { MarcasComponent } from './componentes/admin-dashboard/marcas/marcas.component';
+import { AddCategoriaDialog, ConfirmCADeleteDialog, CategoriasComponent, EditCategoriaDialog } from './componentes/admin-dashboard/categorias/categorias.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { AddUsuarioDialog, ConfirmUsuDeleteDialog, EditUsuarioDialog , UsuariosComponent } from './componentes/admin-dashboard/usuarios/usuarios.component';
 @NgModule({
   declarations: [
     AppComponent,
     ClienteDashboardComponent,
     AdminDashboardComponent,
     IniciarSesionComponent,
-    PerfilComponent,
     HistorialComprasComponent,
     CarritoComponent,
-    ResenaComponent
+    ResenaComponent,
+    HeaderComponent,
+    SidenavComponent,
+    FooterComponent,
+    SidebarComponent,
+    ProductoComponent,
+    MarcasComponent,
+    CategoriasComponent,
+    AddProductDialog,
+    EditProductDialog,
+    ConfirmDeleteDialog,
+    AddCategoriaDialog,
+    EditCategoriaDialog,
+    ConfirmCADeleteDialog,
+    UsuariosComponent,
+    AddUsuarioDialog,
+    EditUsuarioDialog,
+    ConfirmUsuDeleteDialog
   ],
   imports: [
     BrowserModule,
@@ -40,6 +69,7 @@ import { ResenaComponent } from './componentes/resena/resena.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatTableModule,
     MatSidenavModule,
     MatInputModule,
     MatSnackBarModule,
@@ -48,7 +78,14 @@ import { ResenaComponent } from './componentes/resena/resena.component';
     MatCardModule,
     MatIconModule,
     MatMenuModule,
-    RouterModule
+    RouterModule, // Asegúrate de importar RouterModule aquí
+    MatMenuModule,
+    MatListModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     provideHttpClient(withFetch())

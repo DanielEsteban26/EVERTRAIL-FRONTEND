@@ -1,0 +1,163 @@
+.sidenav-container {
+  height: calc(100vh - 64px); /* Altura total menos la altura del header */
+  display: flex;
+  flex-direction: column;
+  margin-top: 64px; /* Altura del header */
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: #4CAF50; /* Color verde para el header */
+  height: 64px; /* Altura del header */
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.header .spacer {
+  flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+.sidenav {
+  width: 300px;
+  background-color: #2C3E50; /* Color gris oscuro para el sidenav */
+  color: #ECF0F1; /* Color claro para el texto */
+  height: 100vh; /* Altura total de la ventana */
+  border-radius: 0; /* Quitar el border-radius */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espacio entre los elementos */
+}
+
+.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar verticalmente */
+  align-items: center;
+  height: 100%;
+  padding-top: 20px; /* Espacio superior para el título */
+}
+
+.sidenav-title {
+  color: #ECF0F1; /* Color claro para el título */
+  margin-bottom: 20px; /* Espacio inferior para separar del acordeón */
+}
+
+.accordion-container {
+  width: 100%;
+  max-width: 250px; /* Ancho máximo del acordeón */
+  margin: 0 auto; /* Centrar el acordeón */
+}
+
+.mat-nav-list {
+  width: 100%;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.mat-expansion-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* Espacio entre los paneles */
+  font-size: 0.9em; /* Reducir el tamaño de la fuente */
+}
+
+.mat-expansion-panel-header {
+  color: #ECF0F1; /* Color claro para el texto */
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Aumentar el área de clic */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el encabezado */
+  background-color: #34495E; /* Color gris medio para el encabezado */
+  border-radius: 4px; /* Bordes redondeados */
+  transition: background-color 0.3s;
+}
+
+.mat-expansion-panel-header:hover {
+  background-color: #1ABC9C; /* Color verde claro al pasar el ratón */
+}
+
+.mat-expansion-panel-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mat-expansion-panel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mat-expansion-panel-content a {
+  color: #2C3E50; /* Color gris oscuro para los enlaces */
+  text-decoration: none; /* Quitar subrayado */
+  padding: 10px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  background-color: #ECF0F1; /* Color claro para los botones */
+}
+
+.mat-expansion-panel-content a:hover {
+  background-color: #BDC3C7; /* Color gris claro al pasar el ratón */
+}
+
+.mat-button {
+  color: #2C3E50; /* Color gris oscuro para el texto */
+  background-color: #ECF0F1; /* Color claro para los botones */
+  margin: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.mat-button:hover {
+  background-color: #BDC3C7; /* Color gris claro al pasar el ratón */
+}
+
+/* Estilos específicos para los encabezados de Resumen y Usuarios */
+.mat-expansion-panel-header.resumen-header,
+.mat-expansion-panel-header.usuarios-header {
+  background-color: #FFFFFF; /* Fondo blanco */
+  color: #2C3E50; /* Color gris oscuro para el texto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado grande */
+}
+
+table {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

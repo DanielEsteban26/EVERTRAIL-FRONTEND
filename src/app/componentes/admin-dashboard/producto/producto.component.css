@@ -1,0 +1,59 @@
+:host {
+    display: block;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .products-container {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  }
+  
+  .add-product-dialog .mat-form-field {
+    width: 100%;
+  }
+  
+  .add-product-dialog .mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .products-container {
+    margin: 20px;
+  }
+  
+  .mat-elevation-z8 {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos personalizados para los botones */
+  .edit-button {
+    background-color: #FFEB3B; /* Amarillo */
+    color: black;
+  }
+  
+  .delete-button {
+    background-color: #F44336; /* Rojo */
+    color: white;
+  }
+  
