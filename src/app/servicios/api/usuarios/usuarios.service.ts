@@ -2,15 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../../compartido/modelos/usuarioDTO/usuario.model';
-
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
   private apiUrl = 'http://localhost:8081/api/usuarios'; // Base URL de la API
-
   constructor(private http: HttpClient) { 
   }
+
 
   private getHeaders():HttpHeaders{
     const token = localStorage.getItem('token'); // Obtiene el token del localStorage
@@ -25,7 +24,7 @@ export class UsuariosService {
       });
     }
   }
-
+  
   getUsuarios(): Observable<any>{
     const headers = this.getHeaders();
     return this.http.get<any>(`${this.apiUrl}/listar`, { headers });

@@ -1,3 +1,11 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -25,17 +33,43 @@
   margin-bottom: 40px;
 }
 
-.products {
+.products-categories {
   padding: 40px 0;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
 
-.products h2 {
+.products-categories h2 {
   font-size: 2em;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: center; /* Centrar el título */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr; /* Ajusta el tamaño de las columnas */
+  gap: 20px; /* Espacio entre las columnas */
+}
+
+.categories {
+  padding: 20px;
+  background-color: #f9f9f9; /* Fondo claro para distinguir */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  text-align: left; /* Alinear el contenido a la izquierda */
+}
+
+.categories h3 {
+  font-size: 1.8em; /* Tamaño del título de categorías */
+  margin-bottom: 15px; /* Espacio debajo del título */
+}
+
+.products {
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco para productos */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .products-grid {
@@ -69,4 +103,10 @@
   font-weight: bold;
   color: #ff5722;
   margin-top: 10px;
+}
+
+mat-checkbox {
+  display: block; /* Cada checkbox en una nueva línea */
+  margin: 10px 0; /* Espacio entre checkboxes */
+  text-align: left; /* Alinear el texto a la izquierda */
 }

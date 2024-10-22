@@ -26,6 +26,7 @@ export class AdminDashboardComponent {
        ()=> {
         localStorage.removeItem('token');
         localStorage.removeItem('rol');
+        localStorage.removeItem('id');
         console.log('Token removido correctamente :)');
         this.router.navigate(['/iniciar-sesion']);
        },

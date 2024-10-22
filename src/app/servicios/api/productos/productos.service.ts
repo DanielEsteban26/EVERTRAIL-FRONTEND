@@ -8,6 +8,7 @@ import { Producto } from '../../../compartido/modelos/productoDTO/producto.model
 })
 export class ProductosService {
   private apiUrl = 'http://localhost:8081/api/productos'; // Base URL de la API
+ 
 
   constructor(private http: HttpClient) { }
 

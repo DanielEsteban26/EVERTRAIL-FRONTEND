@@ -1,31 +1,41 @@
 <mat-sidenav-container class="sidenav-container">
-  <app-sidenav></app-sidenav>
   <mat-sidenav-content>
     <div class="home-container">
-      <div class="content-container">
-        <app-header (toggleSidenav)="sidenav.toggle()"></app-header>
-        <section class="hero">
-          <h1>Bienvenido a nuestra tienda de ropa deportiva</h1>
-          <p>Encuentra la mejor ropa deportiva para tus actividades favoritas.</p>
-          <button mat-raised-button color="primary">Comprar Ahora</button>
-        </section>
-        <section class="products">
-          <h2>Productos Destacados</h2>
-          <div class="products-grid">
-            <mat-card *ngFor="let product of products" class="product-card">
-              <mat-card-content>
-                <h3>{{ product.nombre }}</h3>
-                <p>{{ product.descripcion }}</p>
-                <p class="price">{{ product.precio | currency }}</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button color="primary">Agregar al Carrito</button>
-              </mat-card-actions>
-            </mat-card>
+      <app-header (toggleSidenav)="sidenav.toggle()"></app-header>
+      <section class="hero">
+        <h1>Bienvenido a nuestra tienda de ropa deportiva</h1>
+        <p>Encuentra la mejor ropa deportiva para tus actividades favoritas.</p>
+        <button mat-raised-button color="primary">Comprar Ahora</button>
+      </section>
+
+      <section class="products-categories">
+        <h2>Productos Destacados</h2>
+        <div class="grid-container">
+          <div class="categories">
+            <h3>Categorías</h3>
+            <mat-checkbox *ngFor="let categoria of categorias" [(ngModel)]="selectedCategories[categoria.id!]"
+              (change)="filterProducts()">
+              {{ categoria.nombre }}
+            </mat-checkbox>
           </div>
-        </section>
-        <app-footer></app-footer>
-      </div>
+          <div class="products">
+            <div class="products-grid">
+              <mat-card *ngFor="let product of filteredProducts" class="product-card">
+                <mat-card-content>
+                  <h3>{{ product.nombre }}</h3>
+                  <p>{{ product.descripcion }}</p>
+                  <p class="price">{{ product.precio | currency }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button color="primary" (click)="agregarAlCarrito(product)">Agregar al Carrito</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <app-footer></app-footer>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

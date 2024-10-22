@@ -9,16 +9,16 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css'] // Cambiado a styleUrls
+  styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[] = [];
-  displayedColumns: string[] = ['id', 'nombreUsuario', 'email', 'rol', 'acciones']; // Asegúrate de que los nombres coincidan con el modelo
+  displayedColumns: string[] = ['id', 'nombreUsuario', 'correo', 'rol', 'acciones'];
   dataSource = new MatTableDataSource<Usuario>(this.usuarios);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort; // Cambiado a MatSort
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private usuarioService: UsuariosService, public dialog: MatDialog) { }
 
@@ -47,7 +47,7 @@ export class UsuariosComponent implements OnInit {
   openAddUsuarioDialog(): void {
     const dialogRef = this.dialog.open(AddUsuarioDialog, {
       width: '400px',
-      data: { nombreUsuario: '', email: '', rol: '' } // Asegúrate de que los nombres coincidan con el modelo
+      data: { nombreUsuario: '', correo: '', contrasenia: '', rol: '' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -134,23 +134,31 @@ export class UsuariosComponent implements OnInit {
   selector: 'add-usuario-dialog',
   template: `
     <h2 mat-dialog-title>Agregar Nuevo Usuario</h2>
-    <mat-dialog-content class="add-usuario-dialog">
-      <form (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+      <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="data.nombreUsuario" name="nombreUsuario" required> <!-- Cambiado a nombreUsuario -->
+          <input matInput [(ngModel)]="data.nombreUsuario" name="nombreUsuario" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="data.correo" name="email" required>
+          <input matInput [(ngModel)]="data.correo" name="correo" required email>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="data.contrasenia" name="contrasenia" type="password" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Rol</mat-label>
-          <input matInput [(ngModel)]="data.rol" name="rol" required>
+          <mat-select [(ngModel)]="data.rol" name="rol" required>
+            <mat-option [value]="{ id: 1, nombre: 'Administrador' }">Administrador</mat-option>
+            <mat-option [value]="{ id: 2, nombre: 'Usuario' }">Usuario</mat-option>
+            <mat-option [value]="{ id: 3, nombre: 'Cliente' }">Cliente</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-dialog-actions>
           <button mat-button type="button" (click)="onCancel()">Cancelar</button>
-          <button mat-raised-button color="primary" type="submit">Agregar Usuario</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">Agregar Usuario</button>
         </mat-dialog-actions>
       </form>
     </mat-dialog-content>
@@ -176,23 +184,31 @@ export class AddUsuarioDialog {
   selector: 'edit-usuario-dialog',
   template: `
     <h2 mat-dialog-title>Editar Usuario</h2>
-    <mat-dialog-content class="edit-usuario-dialog">
-      <form (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+      <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
         <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="data.nombreUsuario" name="nombreUsuario" required> <!-- Cambiado a nombreUsuario -->
+          <input matInput [(ngModel)]="data.nombreUsuario" name="nombreUsuario" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="data.correo" name="email" required>
+          <input matInput [(ngModel)]="data.correo" name="correo" required email>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="data.contrasenia" name="contrasenia" type="password">
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Rol</mat-label>
-          <input matInput [(ngModel)]="data.rol" name="rol" required>
+          <mat-select [(ngModel)]="data.rol" name="rol" required> 
+            <mat-option [value]="{ id: 1, nombre: 'Administrador' }">Administrador</mat-option>
+            <mat-option [value]="{ id: 2, nombre: 'Usuario' }">Usuario</mat-option>
+            <mat-option [value]="{ id: 3, nombre: 'Cliente' }">Cliente</mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-dialog-actions>
           <button mat-button type="button" (click)="onCancel()">Cancelar</button>
-          <button mat-raised-button color="primary" type="submit">Guardar Cambios</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">Guardar Cambios</button>
         </mat-dialog-actions>
       </form>
     </mat-dialog-content>
@@ -212,6 +228,7 @@ export class EditUsuarioDialog {
     this.dialogRef.close();
   }
 }
+
 
 // MODAL PARA CONFIRMAR ELIMINACIÓN
 @Component({

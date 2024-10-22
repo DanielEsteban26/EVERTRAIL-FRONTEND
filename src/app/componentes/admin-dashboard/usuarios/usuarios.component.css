@@ -16,3 +16,17 @@
   background-color: #F44336; /* Rojo */
   color: white;
 }
+
+/* Estilos para los diálogos */
+.add-usuario-dialog, .edit-usuario-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}

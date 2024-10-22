@@ -4,6 +4,9 @@ header {
     padding: 10px 20px;
     width: 100%;
     box-sizing: border-box;
+    position: fixed; /* Hace que el header sea fijo */
+    top: 0; /* Fija el header en la parte superior */
+    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
 }
 
 nav {
@@ -73,6 +76,21 @@ nav {
 
 .small-icon {
     font-size: 24px;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
 }
 
 @media (max-width: 768px) {

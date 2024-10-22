@@ -1,20 +1,52 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Carrito } from '../../../compartido/modelos/CarritoDTO/carrito.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8080/api/carrito';
+  private apiUrl = 'http://localhost:8081/api/carritos'; // Base URL de la API
 
   constructor(private http: HttpClient) {}
 
-  getCart(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/listar`);
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': token 
+      });
+    } else {
+      return new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+    }
   }
 
-  removeFromCart(itemId: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/eliminar/${itemId}`);
+  crearCarrito(carrito: Carrito): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/registrar`, carrito, { headers });
+  }
+
+  obtenerCarritoPorId(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/buscar/${id}`, { headers });
+  }
+
+  obtenerCarrito(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/listar`, { headers });
+  }
+
+  actualizarCarrito(id: number, carrito: Carrito): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.apiUrl}/actualizar/${id}`, carrito, { headers });
+  }
+
+  eliminarProducto(id: number): Observable<void> {
+    const headers = this.getHeaders();
+    return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`, { headers });
   }
 }

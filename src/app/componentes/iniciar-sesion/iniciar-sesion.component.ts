@@ -33,11 +33,12 @@ export class IniciarSesionComponent implements OnInit {
           console.log('Login successful', response);
           const loginResponse = response.object;
           console.log('Login response object:', loginResponse); // Log the entire response object
-          if (loginResponse && loginResponse.token && loginResponse.rol) {
+          if (loginResponse && loginResponse.token && loginResponse.rol && loginResponse.id) {
             // Guardar token y rol en localStorage
             localStorage.setItem('token', loginResponse.token);
             localStorage.setItem('rol', loginResponse.rol);
-            console.log('Token y rol guardados en localStorage');
+            localStorage.setItem('id', loginResponse.id.toString()); // Asegúrate de que el servidor devuelve el ID del usuario
+            console.log('Token, rol y id de usuario guardados en localStorage');
             this.redirectUser(loginResponse.rol);
           } else {
             console.error('Respuesta de login inválida', response);
