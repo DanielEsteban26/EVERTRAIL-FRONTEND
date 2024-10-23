@@ -5,6 +5,5 @@ export interface CarritoDetalle {
     productoId: number;
     cantidad: number;
     precio: number;
-    productoNombre: string;
-    productoDescripcion: string;
+  
   }

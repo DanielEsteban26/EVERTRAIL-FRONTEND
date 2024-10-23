@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CarritoDetalleService } from '../../../servicios/api/carrito/carritoDetalle.service';
 import { MetodoPago } from '../../../compartido/modelos/MetodoPagoDTO/metodoPago.model';
 import { MetodoPagoService } from '../../../servicios/api/MetodoPago/metodoPago.service';
+import { CarritoService } from '../../../servicios/api/carrito/carrito.service';
+import { CarritoDetalle } from '../../../compartido/modelos/CarritoDetalleDTO/carritoDetalle.model';
 
 @Component({
   selector: 'app-carrito',
@@ -11,15 +12,16 @@ import { MetodoPagoService } from '../../../servicios/api/MetodoPago/metodoPago.
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
-  carrito: any[] = [];
-  displayedColumns: string[] = ['nombre', 'descripcion', 'cantidad', 'precio', 'acciones'];
+  carrito: CarritoDetalle[] = [];
+  displayedColumns: string[] = ['cantidad', 'precio', 'acciones'];
   totalPrecio: number = 0;
   totalProductos: number = 0;
 
   constructor(
-    private carritoDetalleService: CarritoDetalleService,
+    private carritoService: CarritoService,
     private metodoPagoService: MetodoPagoService,
     public dialog: MatDialog
+
   ) {}
 
   ngOnInit(): void {
@@ -27,17 +29,23 @@ export class CarritoComponent implements OnInit {
   }
 
   obtenerCarrito(): void {
-    this.carritoDetalleService.obtenerCarrito().subscribe(
+    this.carritoService.obtenerCarrito().subscribe(
       (response: any) => {
-        console.log('Carrito:', response.object);
-        this.carrito = response.object.map((item: any) => ({
-          ...item,
-          productoNombre: item.productoNombre,
-          productoDescripcion: item.productoDescripcion
-        }));
-        this.calcularTotal();
-        if (response.object.length > 0) {
-          localStorage.setItem('carritoId', response.object[0].carritoId); // Guarda el ID del carrito en localStorage
+        if (response && response.object) {
+          this.carrito = response.object.map((item: any) => ({ ...item }));
+          this.calcularTotal();
+
+          // Manejo de idCarrito en localStorage
+          if (this.carrito.length > 0) {
+            localStorage.getItem('idCarrito');
+          } else {
+            localStorage.removeItem('idCarrito');
+          }
+
+          // Actualizar el contador de productos en el carrito
+          this.totalProductos = this.carrito.reduce((total, item) => total + item.cantidad, 0);
+        } else {
+          console.error('La respuesta no contiene un objeto válido');
         }
       },
       (error: any) => {
@@ -46,58 +54,29 @@ export class CarritoComponent implements OnInit {
     );
   }
 
-  incrementarCantidad(item: any): void {
-    item.cantidad++;
-    this.actualizarCantidad(item);
-  }
-
-  decrementarCantidad(item: any): void {
-    if (item.cantidad > 1) {
-      item.cantidad--;
-      this.actualizarCantidad(item);
-    }
-  }
-
-  actualizarCantidad(item: any): void {
-    this.carritoDetalleService.actualizarProducto(item).subscribe(
-      (response: any) => {
-        console.log('Cantidad actualizada:', response);
-        this.calcularTotal();
-      },
-      (error: any) => {
-        console.error('Error al actualizar la cantidad:', error);
-      }
-    );
-  }
-
-  eliminarProducto(id: number): void {
-    this.carritoDetalleService.eliminarProducto(id).subscribe(
-      () => {
-        this.carrito = this.carrito.filter(item => item.id !== id);
-        this.calcularTotal();
-      },
-      (error: any) => {
-        console.error('Error al eliminar el producto del carrito:', error);
-      }
-    );
-  }
-
-  eliminarTodosLosProductos(): void {
-    const carritoId = Number(localStorage.getItem('carritoId'));
-    this.carritoDetalleService.eliminarTodosLosProductos(carritoId).subscribe(
-      () => {
-        this.carrito = [];
-        this.calcularTotal();
-      },
-      (error: any) => {
-        console.error('Error al eliminar todos los productos del carrito:', error);
-      }
-    );
-  }
-
   calcularTotal(): void {
     this.totalPrecio = this.carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
     this.totalProductos = this.carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  }
+
+  agregarAlCarrito(nuevoProducto: CarritoDetalle): void {
+    this.carrito.push(nuevoProducto);
+    this.calcularTotal();
+    // Actualiza el contador de productos
+    this.totalProductos += nuevoProducto.cantidad;
+
+    // Manejo de idCarrito en localStorage
+    const idCarrito = this.carrito[0].carritoId.toString();
+    localStorage.setItem('idCarrito', idCarrito);
+  }
+  
+
+  eliminarTodosLosProductos(): void {
+    this.carrito = [];
+    this.totalPrecio = 0;
+    this.totalProductos = 0; // Reinicia el contador de productos
+    localStorage.removeItem('idCarrito'); // Eliminar idCarrito cuando el carrito está vacío
+    console.log('Todos los productos han sido eliminados del carrito');
   }
 
   abrirModalRegistrarTarjeta(): void {
@@ -129,8 +108,63 @@ export class CarritoComponent implements OnInit {
       }
     });
   }
-}
 
+  incrementarCantidad(item: CarritoDetalle): void {
+    item.cantidad += 1;
+    this.actualizarCarrito(item);
+    this.totalProductos += 1; // Aumenta el contador de productos
+  }
+
+  decrementarCantidad(item: CarritoDetalle): void {
+    if (item.cantidad > 1) {
+      item.cantidad -= 1;
+      this.actualizarCarrito(item);
+      this.totalProductos -= 1; // Disminuye el contador de productos
+    } else {
+      this.eliminarProducto(item.carritoId);
+    }
+  }
+
+  eliminarProducto(productoId: number): void {
+    this.carritoService.eliminarProductoDelCarrito(productoId).subscribe(
+      () => {
+        const productoEliminado = this.carrito.find(item => item.carritoId === productoId);
+        if (productoEliminado) {
+          this.totalProductos -= productoEliminado.cantidad; // Disminuye el contador de productos
+        }
+        this.carrito = this.carrito.filter(item => item.carritoId !== productoId);
+        this.calcularTotal();
+        console.log('Producto eliminado del carrito.');
+        // Manejar el caso de que el carrito esté vacío después de eliminar un producto
+        if (this.carrito.length === 0) {
+          localStorage.removeItem('idCarrito'); // Eliminar idCarrito si el carrito está vacío
+        }
+      },
+      (error: any) => {
+        console.error('Error al eliminar el producto del carrito:', error);
+      }
+    );
+  }
+
+  actualizarCarrito(item: CarritoDetalle): void {
+    const carritoDetalle: CarritoDetalle = {
+      carritoId: item.carritoId,
+      productoId: item.productoId,
+      precio: item.precio,
+      cantidad: item.cantidad
+    };
+
+    this.carritoService.actualizarCantidad(item.carritoId, carritoDetalle).subscribe(
+      () => {
+        this.calcularTotal();
+      },
+      (error: any) => {
+        console.error('Error al actualizar la cantidad:', error);
+      }
+    );
+  }
+}
+// Modal para registrar tarjeta
 @Component({
   selector: 'app-registrar-tarjeta-modal',
   template: `
@@ -203,6 +237,7 @@ export class RegistrarTarjetaModalComponent implements OnInit {
   }
 }
 
+// Modal para seleccionar tarjeta
 @Component({
   selector: 'app-seleccionar-tarjeta-modal',
   template: `
@@ -231,7 +266,7 @@ export class SeleccionarTarjetaModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<SeleccionarTarjetaModalComponent>,
     private metodoPagoService: MetodoPagoService,
-    private carritoDetalleService: CarritoDetalleService // Inyectar el servicio de carrito
+    private carritoService: CarritoService // Inyectar el servicio de carrito
   ) {}
 
   ngOnInit(): void {
@@ -265,18 +300,12 @@ export class SeleccionarTarjetaModalComponent implements OnInit {
           (response: any) => {
             console.log('Pago procesado:', response);
             this.dialogRef.close(true); // Cierra el modal y devuelve true
-
           },
           (error: any) => {
             console.error('Error al procesar el pago:', error);
-            this.dialogRef.close(false); // Cierra el modal y devuelve false
           }
         );
-      } else {
-        console.error('Método de pago no encontrado');
       }
-    } else {
-      console.error('Seleccione un método de pago');
     }
   }
 

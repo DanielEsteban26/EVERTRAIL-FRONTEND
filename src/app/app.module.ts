@@ -25,7 +25,7 @@ import { SidenavComponent } from './componentes/cliente-dashboard/sidenav/sidena
 import { FooterComponent } from './componentes/cliente-dashboard/footer/footer.component';
 import { SidebarComponent } from './componentes/admin-dashboard/sidebar/sidebar.component';
 import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AddProductDialog, ConfirmDeleteDialog, EditProductDialog, ProductoComponent } from './componentes/admin-dashboard/producto/producto.component';
 import { AddCategoriaDialog, ConfirmCADeleteDialog, CategoriasComponent, EditCategoriaDialog } from './componentes/admin-dashboard/categorias/categorias.component';
@@ -36,6 +36,7 @@ import { AddUsuarioDialog, ConfirmUsuDeleteDialog, EditUsuarioDialog , UsuariosC
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CarritoComponent, RegistrarTarjetaModalComponent, SeleccionarTarjetaModalComponent } from './componentes/cliente-dashboard/carrito/carrito.component';
+
 
 
 @NgModule({
@@ -64,7 +65,7 @@ import { CarritoComponent, RegistrarTarjetaModalComponent, SeleccionarTarjetaMod
     EditUsuarioDialog,
     ConfirmUsuDeleteDialog,
     RegistrarTarjetaModalComponent,
-    SeleccionarTarjetaModalComponent
+    SeleccionarTarjetaModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +93,7 @@ import { CarritoComponent, RegistrarTarjetaModalComponent, SeleccionarTarjetaMod
     MatSortModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatToolbarModule
   ],
   providers: [
     provideHttpClient(withFetch())
